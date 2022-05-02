@@ -32,16 +32,16 @@
 \section*{Lý thuyết}
 
 \subsection*{Câu 2:}
-Có 3 giả thuyết(assumption):
+Có 3 giả thuyết(assumption):
 \begin{itemize}
-    \item \textbf{Tính chuỗi markov (Markovianity):} 
+    \item \textbf{Tính chuỗi markov (Markovianity):} 
     Trạng thái hiện tại của biến chỉ phụ thuộc vào trạng thái trước đó (của biến hidden)
     
     $\mathbb{P}[H_t = h_t | H_{1:t-1} = h_{1:t-1},O_{1:t} = o_{1:t}]$ =  $\mathbb{P}[H_t = h_t | H_{t-1} = h_{t-1}]$ \\$\forall h_t \in \mathbb{H}$
     
-   - Hợp lý: 
+   - Hợp lý: Trên bàn ăn có các dụng cụ: dao, thìa, nĩa. Dụng cụ được dùng phụ thuộc vào dụng cụ dùng trước đó. Sau khi dùng dao, nĩa có khả năng được dùng cao hơn, tương tự sau khi dùng nĩa thì thìa có khả năng được dùng (để ăn canh).
    
-   - Không hợp lý: Tâm trạng của ngày hiện tại (Buồn, vui,...) không chỉ phụ thuộc vào nhiều ngày trước đó chứ không chỉ một ngày
+   - Không hợp lý: Tâm trạng của ngày hiện tại (Buồn, vui,...) phụ thuộc vào nhiều ngày trước đó chứ không chỉ một ngày
     
     \item \textbf{Tính độc lập đầu ra (Output independence):} Trạng thái hiện tại của biến quan sát chỉ phụ thuộc vào trạng thái hiện tại của biến hidden
     
@@ -49,7 +49,7 @@ Có 3 giả thuyết(assumption):
      
      - Hợp lý: Trên bàn ăn có một chiếc thìa và một đôi đũa. Khi chọn chiếc thìa sẽ có khả năng ăn súp cao hơn và khi chọn đũa sẽ có khả năng ăn thịt cao hơn.
      
-     - Không hợp lý: 
+     - Không hợp lý: Ví dụ màu sắc của trang phục nói lên được tâm trạng của người mặc. Tuy nhiên nếu ngày hôm đó trong tủ đồ chỉ có một màu duy nhất này thì sự phản ánh từ Observation vào State không còn đúng nữa.
     
     \item \textbf{Tính ổn định (Stationarity)} Các xác suất chuyển đổi độc lập với thời gian
     
@@ -89,7 +89,6 @@ Có 3 giả thuyết(assumption):
 
 \textbf{Đánh giá độ phức tạp thuật toán: }
 
-Có K trạng thái ẩn $y_1,y_2,...,y_k$, có T biến quan sát (Observations). 
  \begin{figure}[H]
      \centering
      \includegraphics[width=18cm,height=8cm]{viterbi.JPG}
@@ -97,19 +96,13 @@ Có K trạng thái ẩn $y_1,y_2,...,y_k$, có T biến quan sát (Observations
  \vspace{-1cm}
  \textit {Ví dụ thuật toán Viterbi}
 
+Có K trạng thái ẩn $y_1,y_2,...,y_k$, có T biến quan sát (Observations). 
+
 Có T biến quan sát được, với mỗi biến quan sát tương ứng sẽ có K States cần duyệt, trong mỗi State cần liên hệ lại với K States của biến quan sát trước đó (Để thực hiện công thức quy hoạch động). Do đó độ phức tạp thuật toán là O(T.$K^2$)
 
-\textbf{Câu 1: Cài đặt thuật toán Viterbi}
 
-Tạo ra hai bảng hai chiếu có kích thước KxT được tạo ra(K là kích thước của Hidden states, T là kích thước của Observations):
-\begin{itemize}
-    \item  Bảng T1: mỗi phần tử $T_1[i,j]$ lưu xác suất của con đường có khả năng đi tới nhất cho tới hiện tại:
-    
-    \item Bảng T2: mỗi phần tử $T_2[i,j]$ lưu $x_{j-1}$  trữ con đường có khả năng đi tới cao nhất.
-    \item Các hạng tử trong bảng T1 và T2 được điền theo thứ tự tăng dần của K.j+i
-    \item $T_1[i,j] = max(T_1[k,j-1].A[k,i].B[i,y_i])$
-    \item $T_2[i,j] = argmax_k(T_1[k,j-1].A[k,i].B[i,y_i])$
-\end{itemize}
+
+%https://github.com/lmtri-fit-hcmus/MarkovChain_ViterbiAlgorithm/
 
 
 %https://warwick.ac.uk/fac/sci/masdoc/current/msc-modules/ma916/mlia/hmm/
