@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <map>
 using namespace std;
 
 double GetEmissionProb(string Observation, int j, vector<vector<double>> Emission, vector<string> O);
