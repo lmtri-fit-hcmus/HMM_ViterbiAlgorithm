@@ -18,19 +18,20 @@ double GetEmissionProb(string Observation, int j, vector<vector<double>> Emissio
 }
 //Hàm in ra đường đi tối ưu nhất với maxIndex là vị trí cuối cùng của State tối ưu
 //Vector Path lưu đường đi tối ưu nhất, vector States để truy xuất đường đi từ Path
-void PrintPath(int maxIndex, vector<vector<int>> Path, vector<string> States)
+void PrintPath(int maxIndex, vector<vector<int>> Path, vector<string> States, vector<string>&resolution)
 {
     int i = Path.size() - 2;
     int j = Path[Path.size() - 1][maxIndex];
     string res = States[maxIndex];
     while (i >= 0)
     {
-        string tmp = States[j] + " ";
+        resolution.push_back(States[j]);
+        string tmp = States[j] + "\n";
         res = tmp + res;
         j = Path[i][j];
         i--;
     }
-    cout << "The steps of states are " << res;
+    cout << "The steps of states are \n" << res;
 }
 
 //Hàm thuật toán Viterbi
@@ -41,7 +42,7 @@ void PrintPath(int maxIndex, vector<vector<int>> Path, vector<string> States)
     - Pi là tập xác suất khởi tạo
     - Trans và Emission lần lượt là tập xác suất chuyển tiếp và xác suất "Emission"
 */
-void ViterbiAlgorithm(vector<string> Observations, vector<string> O, vector<string> States, 
+vector<string> ViterbiAlgorithm(vector<string> Observations, vector<string> O, vector<string> States, 
 vector<double> Pi, vector<vector<double>> Trans, vector<vector<double>> Emission)
 {
     //V lưu xác suất tối ưu nhất tới Observation thứ i với States j
@@ -68,8 +69,8 @@ vector<double> Pi, vector<vector<double>> Trans, vector<vector<double>> Emission
             for (int k = 0; k < States.size(); k++)
             {
                 //Nếu đường đi có xác suất bằng 0 thì bỏ đường đi đó
-                if (V[i - 1][k] == 0)
-                    continue;
+                //if (V[i - 1][k] == 0)
+                    //continue;
                 double cmpNum = V[i - 1][k] * Trans[k][j] * GetEmissionProb(Observations[i], j, Emission, O);
                 if (cmpNum > maxP)
                 {
@@ -95,8 +96,10 @@ vector<double> Pi, vector<vector<double>> Trans, vector<vector<double>> Emission
         }
     }
     //In ra đường đi tương ứng với xác suất đó
-    PrintPath(maxIndex, Path, States);
+    vector<string> res;
+    PrintPath(maxIndex, Path, States,res);
     cout << endl
          << "With highest probability of " << maxProbability << endl;
+    return res;
 }
 
