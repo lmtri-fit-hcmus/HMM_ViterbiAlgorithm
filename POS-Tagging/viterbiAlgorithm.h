@@ -2,8 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <map>
+#include <algorithm>
 using namespace std;
 
-double GetEmissionProb(string Observation, int j, vector<vector<double>> Emission, vector<string> O);
-void PrintPath(int maxIndex, vector<vector<int>> Path, vector<string> States);
-vector<string> ViterbiAlgorithm(vector<string> Observations, vector<string> O, vector<string> States, vector<double> Pi, vector<vector<double>> Trans, vector<vector<double>> Emission);
+vector<string> PrintPath(string maxx, map<int, map<string, string>> Path, vector<string> &PathVector);
+vector<string> ViterbiAlgorithm(vector<string> Observations, vector<string> States, map<string,double> Pi, map<string,map<string,double>> Trans, map<string,map<string,double>>  Emission);
